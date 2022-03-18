@@ -26,11 +26,9 @@ export default function App() {
     setSearchTerm(event.target.value);
   };
 
-  const searchedTerms = searchTerms.filter(function (search) {
-    console.log("Called SearchedTerms  " + searchTerm);
-    console.log(search.name.includes(searchTerm));
-    return search.name.includes(searchTerm);
-  });
+  const searchedTerms = searchTerms.filter((search) =>
+    search.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div className="App">
