@@ -4,7 +4,14 @@ import React from "react";
 const title = "React Starter";
 
 export default function App() {
-  const [searchTerm, setSearchTerm] = React.useState("React");
+  const [searchTerm, setSearchTerm] = React.useState(
+    localStorage.getItem("search") || "React"
+  );
+
+  React.useEffect(() => {
+    console.log("Fired: " + searchTerm);
+    localStorage.setItem("search", searchTerm);
+  }, [searchTerm]);
 
   const searchTerms = [
     {
@@ -22,7 +29,6 @@ export default function App() {
   ];
 
   const handleSearch = (event) => {
-    console.log("handleSearch");
     setSearchTerm(event.target.value);
   };
 
