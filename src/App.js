@@ -3,7 +3,7 @@ import React from "react";
 
 const title = "React Starter";
 
-export default function App() {
+const useSemiPersistentState = () => {
   const [searchTerm, setSearchTerm] = React.useState(
     localStorage.getItem("search") || "React"
   );
@@ -12,6 +12,12 @@ export default function App() {
     console.log("Fired: " + searchTerm);
     localStorage.setItem("search", searchTerm);
   }, [searchTerm]);
+
+  return [searchTerm, setSearchTerm];
+};
+
+export default function App() {
+  const [searchTerm, setSearchTerm] = useSemiPersistentState();
 
   const searchTerms = [
     {
