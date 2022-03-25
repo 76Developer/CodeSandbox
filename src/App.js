@@ -4,7 +4,7 @@ import React from "react";
 const title = "React Starter";
 
 export default function App() {
-  const [searchTerm, setSearchTerm] = React.useState("");
+  const [searchTerm, setSearchTerm] = React.useState("React");
 
   const searchTerms = [
     {
@@ -33,29 +33,28 @@ export default function App() {
   return (
     <div className="App">
       <h1>{title}</h1>
-      <Search onSearch={handleSearch} />
+      <Search search={searchTerm} onSearch={handleSearch} />
       <hr />
       <List list={searchedTerms} />
     </div>
   );
 }
 
-const List = (props) => {
-  return props.list.map((item) => (
-    <div key={item.id}>
-      <span>{item.name}</span>
-    </div>
-  ));
-};
+const List = ({ list }) => list.map((item) => <Item key={item.id} {...item} />);
 
-const Search = (props) => {
-  return (
+const Item = ({ id, name }) => (
+  <div>
+    <span>{id}:</span>
+    <span>{name}</span>
+  </div>
+);
+
+const Search = ({ search, onSearch }) => (
+  <div>
     <div>
-      <div>
-        <input type="text" id="search" onChange={props.onSearch} />
-        <input type="button" id="searchButton" value="Search" />
-      </div>
-      <div>Searching for: </div>
+      <input type="text" id="search" value={search} onChange={onSearch} />
+      <input type="button" id="searchButton" value="Search" />
     </div>
-  );
-};
+    <div>Searching for: {search}</div>
+  </div>
+);
